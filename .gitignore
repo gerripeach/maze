@@ -1,0 +1,22 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+#IDE stuff
+.idea*/
+.settings*/
+*.iml
+*.classpath
+*.project
+
+
+# Git Stuff #
+*.patch
+*.diff
+*.REMOTE.*
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
