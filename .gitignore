@@ -8,6 +8,7 @@
 #IDE stuff
 .idea*/
 .settings*/
+target*/
 *.iml
 *.classpath
 *.project
