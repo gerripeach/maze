@@ -31,14 +31,23 @@ public class Maze
         hasWall(0, 0, Direction.NORTH, hase);
     }
 
+    private static int getMazeRowLenght(boolean[][] arr) {
+        return (arr.length / 2) + 1;
+    }
+
+    private static int getMazeColLength(boolean[][] arr) {
+        return arr[0].length;
+    }
+
     private static boolean hasWall(int row, int col, Direction dir, boolean[][] arr) {
 
-        int mazeRowLength = (arr.length / 2) +1;
-        int mazeColLength = arr[0].length;
+        int mazeRowLength = getMazeRowLenght(arr);
+        int mazeColLength = getMazeColLength(arr);
 
-        System.out.println(mazeRowLength);
-        System.out.println(mazeColLength);
-
+        if (row > mazeRowLength || col > mazeColLength) {
+            System.out.println("ERROR: wrong input!");
+            return false;
+        }
         if (row == 0 && dir == Direction.NORTH) {
             return true;
         }
