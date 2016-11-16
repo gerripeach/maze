@@ -39,6 +39,15 @@ public class Maze
         return arr[0].length;
     }
 
+    private static boolean isEvenNumber(int i) {
+        return i % 2 == 0 ? true : false;
+    }
+
+    // ungerade zahl = odd number
+    private static boolean isOddNumber(int i) {
+        return i % 2 == 1 ? true : false;
+    }
+
     private static boolean hasWall(int row, int col, Direction dir, boolean[][] arr) {
 
         int mazeRowLength = getMazeRowLenght(arr);
