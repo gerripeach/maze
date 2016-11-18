@@ -14,8 +14,8 @@ public class Maze
     private int maxRows;
     private int maxCols;
 
-    public Maze(boolean[][] maze) {
-        this.maze = maze;
+    public Maze(boolean[][] arr) {
+        this.maze = arr;
         maxRows = (maze.length / 2) + 1;
         maxCols = maze[0].length;
     }
@@ -42,7 +42,7 @@ public class Maze
             		return true;
 
             	int tmpE = row * 2;
-            	return maze[tmpE][col];            
+            	return maze[tmpE][col];
             case SOUTH:
             	if (row == maxRows - 1)
             		return true;
@@ -55,20 +55,4 @@ public class Maze
                 return false;
         }
     }
-
-    private int getArrayIndexOutOfRow(int row) {
-        if (row > maxRows)
-            return 0;
-        return row * 2;
-    }
-
-    private boolean isEvenNumber(int i) {
-        return i % 2 == 0 ? true : false;
-    }
-
-    // ungerade zahl = odd number
-    private boolean isOddNumber(int i) {
-        return i % 2 == 1 ? true : false;
-    }
-
 }

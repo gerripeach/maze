@@ -11,52 +11,18 @@ public class Main {
                 {false, false, false, true},
         };
 
+        Maze maze = new Maze(hase);
         MazeAsciiFactory maf = new MazeAsciiFactory();
 
-
-        Maze maze = new Maze(hase);
-
-        int cols = maze.getMaxCols(); // 4
-        int rows = maze.getMaxRows(); // 5
+        maf.printMaze(maze);
         
-        //System.out.print(rows);
-
+        MazeFactory mf = new MazeFactory();
+        maze = mf.randomMaze(10, 10, .5f);
         
-        for (int i = 0; i < cols; ++i) {
-        	if (maze.hasWall(0, i, Direction.NORTH)) {
-        		System.out.print(maf.returnCharacterByType(Characters.FULL_LINE));
-        	}
-        }
-        System.out.print(maf.returnCharacterByType(Characters.END_LINE));
-        System.out.println();
+        //System.out.println(maze.getMaxCols());
+        //System.out.println(maze.getMaxRows());
+       
         
-        for (int i = 0; i < rows; ++i) {
-        	
-            for (int j = 0; j < cols; ++j) {
-            	if (j == 0)
-            		if (maze.hasWall(i, j, Direction.WEST)) {
-            			System.out.print(maf.returnCharacterByType(Characters.FULL_WALL));
-            		}
-
-                if (maze.hasWall(i, j, Direction.EAST)) {
-            		System.out.print(maf.returnCharacterByType(Characters.FULL_WALL));
-                }
-                else
-                	System.out.print(maf.returnCharacterByType(Characters.EMPTY_WALL));
-            }            
-            System.out.println();
-            
-            for (int j = 0; j < cols; ++j) {            	
-                if (maze.hasWall(i, j, Direction.SOUTH))
-                	System.out.print(maf.returnCharacterByType(Characters.FULL_LINE));
-                else
-                	System.out.print(maf.returnCharacterByType(Characters.EMPTY_LINE));
-
-            }
-            System.out.print(maf.returnCharacterByType(Characters.END_LINE));
-            System.out.println();
-            
-        }
-
+        maf.printMaze(maze);
     }
 }
