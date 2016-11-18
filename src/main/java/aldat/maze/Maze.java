@@ -10,66 +10,60 @@ enum Direction
 
 public class Maze
 {
-    public static void main( String[] args )
-    {
-        boolean[][] hase = {
-                { false, true, true, true },
-                { false, true, true, false },
-                { false, true, false, true },
-                { true, false, true, true },
-                { false, false, false, true }
-        };
+    private boolean[][] maze;
+    private int maxRows;
+    private int maxCols;
 
+    public Maze(boolean[][] maze) {
+        this.maze = maze;
+        maxRows = (maze.length / 2) + 1;
+        maxCols = maze[0].length;
 
-        for (int i = 0; i < hase.length; ++i) {
-            for (int j = 0; j < hase[0].length; ++j) {
-                System.out.print(hase[i][j] + " ");
-            }
-            System.out.println();
+        System.out.println(hasWall(0, 0, Direction.NORTH));
+    }
+
+    public int getMaxRows() {
+        return maxRows;
+    }
+
+    public int getMaxCols() {
+        return maxCols;
+    }
+
+    public boolean hasWall(int row, int col, Direction dir) {
+
+        if (row > maxRows || col > maxCols) {
+            System.out.println("ERROR: wrong input!");
+            return false;
         }
 
-        hasWall(0, 0, Direction.NORTH, hase);
+        switch (dir) {
+            case NORTH:
+                return row == 0 ? true : false;
+            case EAST:
+                return col == maxCols ? true : false;
+            case SOUTH:
+                return row == maxRows ? true : false;
+            case WEST:
+                return col == 0 ? true : false;
+            default:
+                return false;
+        }
     }
 
-    private static int getMazeRowLenght(boolean[][] arr) {
-        return (arr.length / 2) + 1;
+    private int getArrayIndexOutOfRow(int row) {
+        if (row > maxRows)
+            return 0;
+        return row * 2;
     }
 
-    private static int getMazeColLength(boolean[][] arr) {
-        return arr[0].length;
-    }
-
-    private static boolean isEvenNumber(int i) {
+    private boolean isEvenNumber(int i) {
         return i % 2 == 0 ? true : false;
     }
 
     // ungerade zahl = odd number
-    private static boolean isOddNumber(int i) {
+    private boolean isOddNumber(int i) {
         return i % 2 == 1 ? true : false;
     }
-
-    private static boolean hasWall(int row, int col, Direction dir, boolean[][] arr) {
-
-        int mazeRowLength = getMazeRowLenght(arr);
-        int mazeColLength = getMazeColLength(arr);
-
-        if (row > mazeRowLength || col > mazeColLength) {
-            System.out.println("ERROR: wrong input!");
-            return false;
-        }
-        if (row == 0 && dir == Direction.NORTH) {
-            return true;
-        }
-
-        if (col == 0 && dir == Direction.WEST) {
-            return true;
-        }
-
-
-
-
-return true;
-    }
-
 
 }
