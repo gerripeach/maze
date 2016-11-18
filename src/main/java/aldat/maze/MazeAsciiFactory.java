@@ -1,5 +1,9 @@
 package aldat.maze;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class MazeAsciiFactory {
 	
 	private enum Characters {
@@ -14,45 +18,66 @@ public class MazeAsciiFactory {
 		TMP
 	}
 	
-	public void printMaze(Maze maze) {
+	public void printMazeIntoFile(String filename, Maze maze) {
+		BufferedWriter writer = null;
+		try {
+		    writer = new BufferedWriter( new FileWriter(filename + ".txt"));
+		    writer.write(printMaze(maze));
+
+		}
+		catch (IOException e) {
+		}
+		finally	{
+		    try {
+		        if (writer != null)
+		        	writer.close( );
+		    }
+		    catch (IOException e) {
+		    }
+		}
+	}
+	
+	public String printMaze(Maze maze) {
         int cols = maze.getMaxCols(); // 4
         int rows = maze.getMaxRows(); // 5
+        String output = "";
 		
         for (int i = 0; i < cols; ++i) {
         	if (maze.hasWall(0, i, Direction.NORTH)) {
-        		System.out.print(returnCharacterByType(Characters.FULL_LINE));
+        		output += returnCharacterByType(Characters.FULL_LINE);
         	}
         }
-        System.out.print(returnCharacterByType(Characters.END_LINE));
-        System.out.println();
+        output += returnCharacterByType(Characters.END_LINE);
+        output += "\n";
         
         for (int i = 0; i < rows; ++i) {
         	
             for (int j = 0; j < cols; ++j) {
             	if (j == 0)
             		if (maze.hasWall(i, j, Direction.WEST)) {
-            			System.out.print(returnCharacterByType(Characters.FULL_WALL));
+            			output += returnCharacterByType(Characters.FULL_WALL);
             		}
 
                 if (maze.hasWall(i, j, Direction.EAST)) {
-            		System.out.print(returnCharacterByType(Characters.FULL_WALL));
+                	output += returnCharacterByType(Characters.FULL_WALL);
                 }
                 else
-                	System.out.print(returnCharacterByType(Characters.EMPTY_WALL));
-            }            
-            System.out.println();
+                	output += returnCharacterByType(Characters.EMPTY_WALL);
+            }
+            output += "\n";
             
             for (int j = 0; j < cols; ++j) {            	
                 if (maze.hasWall(i, j, Direction.SOUTH))
-                	System.out.print(returnCharacterByType(Characters.FULL_LINE));
+                	output += returnCharacterByType(Characters.FULL_LINE);
                 else
-                	System.out.print(returnCharacterByType(Characters.EMPTY_LINE));
+                	output += returnCharacterByType(Characters.EMPTY_LINE);
 
             }
-            System.out.print(returnCharacterByType(Characters.END_LINE));
-            System.out.println();
+            output += returnCharacterByType(Characters.END_LINE);
+            output += "\n";
             
         }
+        return output;
 	}
 
     private String returnCharacterByType(Characters ch) {

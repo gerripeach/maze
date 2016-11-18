@@ -14,15 +14,16 @@ public class Main {
         Maze maze = new Maze(hase);
         MazeAsciiFactory maf = new MazeAsciiFactory();
 
-        maf.printMaze(maze);
+        System.out.println(maf.printMaze(maze));
         
         MazeFactory mf = new MazeFactory();
-        maze = mf.randomMaze(10, 10, .5f);
+        maze = mf.randomMaze(100, 100, .3f);
         
         //System.out.println(maze.getMaxCols());
         //System.out.println(maze.getMaxRows());
        
         
-        maf.printMaze(maze);
+        maf.printMazeIntoFile("filename", maze);
+        System.out.println(maf.printMaze(maze));
     }
 }
