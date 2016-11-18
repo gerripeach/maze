@@ -12,7 +12,7 @@ public class MazeFactory {
 
 		for (int i = 0; i < mazePrototype[0].length; ++i)
 			for (int j = 0; j < mazePrototype.length; ++j)
-				if (isEvenNumber(j) && i == mazePrototype[0].length - 1)
+				if (i == mazePrototype[0].length - 1 && isEvenNumber(j))
 					mazePrototype[j][i] = true;
 				else
 					mazePrototype[j][i] = r.nextFloat() < p ? true : false;
