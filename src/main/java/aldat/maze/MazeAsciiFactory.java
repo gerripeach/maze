@@ -13,19 +13,24 @@ public class MazeAsciiFactory {
 		
 		FULL_WALL,
 		EMPTY_WALL,
-		END_WALL,
-		
-		TMP
+		END_WALL
+	}
+	
+	private Settings settings;
+	
+	public MazeAsciiFactory(Settings settings) {
+		this.settings = settings;
 	}
 	
 	public void printMazeIntoFile(String filename, Maze maze) {
 		BufferedWriter writer = null;
 		try {
-		    writer = new BufferedWriter( new FileWriter(filename + ".txt"));
+		    writer = new BufferedWriter(new FileWriter(settings.getCollectionTxtPath() + filename + ".txt"));
 		    writer.write(printMaze(maze));
 
 		}
 		catch (IOException e) {
+			System.out.println("ERROR: writing maze into file!");
 		}
 		finally	{
 		    try {
@@ -33,40 +38,42 @@ public class MazeAsciiFactory {
 		        	writer.close( );
 		    }
 		    catch (IOException e) {
+		    	System.out.println("ERROR: closing writer!");
 		    }
 		}
 	}
 	
 	public String printMaze(Maze maze) {
-        int cols = maze.getMaxCols(); // 4
-        int rows = maze.getMaxRows(); // 5
+        int maxCols = maze.getMaxCols();
+        int maxRows = maze.getMaxRows();
         String output = "";
 		
-        for (int i = 0; i < cols; ++i) {
+        for (int i = 0; i < maxCols; ++i) {
         	if (maze.hasWall(0, i, Direction.NORTH)) {
         		output += returnCharacterByType(Characters.FULL_LINE);
         	}
         }
         output += returnCharacterByType(Characters.END_LINE);
-        output += "\n";
         
-        for (int i = 0; i < rows; ++i) {
+        for (int i = 0; i < maxRows; ++i) {
         	
-            for (int j = 0; j < cols; ++j) {
+            for (int j = 0; j < maxCols; ++j) {
             	if (j == 0)
             		if (maze.hasWall(i, j, Direction.WEST)) {
             			output += returnCharacterByType(Characters.FULL_WALL);
             		}
 
                 if (maze.hasWall(i, j, Direction.EAST)) {
-                	output += returnCharacterByType(Characters.FULL_WALL);
+                	if (j == (maxCols - 1))
+                		output += returnCharacterByType(Characters.END_WALL);
+                	else
+                		output += returnCharacterByType(Characters.FULL_WALL);
                 }
                 else
                 	output += returnCharacterByType(Characters.EMPTY_WALL);
             }
-            output += "\n";
             
-            for (int j = 0; j < cols; ++j) {            	
+            for (int j = 0; j < maxCols; ++j) {            	
                 if (maze.hasWall(i, j, Direction.SOUTH))
                 	output += returnCharacterByType(Characters.FULL_LINE);
                 else
@@ -74,7 +81,6 @@ public class MazeAsciiFactory {
 
             }
             output += returnCharacterByType(Characters.END_LINE);
-            output += "\n";
             
         }
         return output;
@@ -87,16 +93,14 @@ public class MazeAsciiFactory {
             case EMPTY_LINE:
                 return "+  ";
             case END_LINE:
-                return "+";
+                return "+\n";
                 
             case FULL_WALL:
                 return "|  ";
             case EMPTY_WALL:
             	return "   ";
             case END_WALL:
-                return "|";
-            case TMP:
-            	return ":(";
+                return "|\n";
             default:
             	return ":(";
         }
