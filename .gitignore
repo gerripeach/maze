@@ -1,11 +1,11 @@
 *.class
 
-# Package Files #
+# Package files #
 *.jar
 *.war
 *.ear
 
-#IDE stuff
+# IDE stuff
 .idea*/
 .settings*/
 target*/
@@ -14,10 +14,14 @@ target*/
 *.project
 
 
-# Git Stuff #
+# Git stuff #
 *.patch
 *.diff
 *.REMOTE.*
 *.BACKUP.*
 *.BASE.*
 *.LOCAL.*
+
+# Maze produced stuff
+*.txt
+*.pbm
