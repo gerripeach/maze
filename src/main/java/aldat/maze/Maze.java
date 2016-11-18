@@ -41,14 +41,14 @@ public class Maze
             	if (col == maxCols)
             		return true;
 
-            	int tmpE = row * 2;
-            	return maze[tmpE][col];
+            	row *= 2;
+            	return maze[row][col];
             case SOUTH:
             	if (row == maxRows - 1)
             		return true;
             	
-            	int tmpS = row == 0 ? 1 : (row * 2) + 1;
-            	return maze[tmpS][col];
+            	row = row == 0 ? 1 : (row * 2) + 1;
+            	return maze[row][col];
             case WEST:
                 return col == 0 ? true : false;
             default:
