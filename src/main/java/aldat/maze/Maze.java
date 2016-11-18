@@ -18,8 +18,6 @@ public class Maze
         this.maze = maze;
         maxRows = (maze.length / 2) + 1;
         maxCols = maze[0].length;
-
-        System.out.println(hasWall(0, 0, Direction.NORTH));
     }
 
     public int getMaxRows() {
@@ -31,7 +29,6 @@ public class Maze
     }
 
     public boolean hasWall(int row, int col, Direction dir) {
-
         if (row > maxRows || col > maxCols) {
             System.out.println("ERROR: wrong input!");
             return false;
@@ -41,9 +38,17 @@ public class Maze
             case NORTH:
                 return row == 0 ? true : false;
             case EAST:
-                return col == maxCols ? true : false;
+            	if (col == maxCols)
+            		return true;
+
+            	int tmpE = row * 2;
+            	return maze[tmpE][col];            
             case SOUTH:
-                return row == maxRows ? true : false;
+            	if (row == maxRows - 1)
+            		return true;
+            	
+            	int tmpS = row == 0 ? 1 : (row * 2) + 1;
+            	return maze[tmpS][col];
             case WEST:
                 return col == 0 ? true : false;
             default:

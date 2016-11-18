@@ -1,0 +1,46 @@
+        for (int i = 1; i <= rows; ++i) {
+            for (int j = 0; j <= cols; ++j) {
+            	if (j == 0)
+            		if (maze.hasWall(j, 0, Direction.WEST)) {
+            			System.out.print(maf.returnCharacterByType(Characters.FULL_WALL));
+            			continue;
+            		}
+            	
+            	if (j == cols)
+            		continue;
+            	
+                if (maze.hasWall(i, j, Direction.EAST)) {
+                	if (j == cols)
+                		System.out.print(maf.returnCharacterByType(Characters.END_WALL));
+                	else
+                		System.out.print(maf.returnCharacterByType(Characters.FULL_WALL));
+                	
+                	continue;
+                }
+                else
+                	System.out.print(maf.returnCharacterByType(Characters.EMPTY_WALL));
+            }
+            System.out.println();
+            for (int j = 0; j <= cols; ++j) {
+            	if (j == cols)
+            		continue;
+            	
+                if (maze.hasWall(i, j, Direction.SOUTH)) {
+                	if (j == cols)
+                		System.out.print(maf.returnCharacterByType(Characters.END_LINE));
+                	else
+                		System.out.print(maf.returnCharacterByType(Characters.FULL_LINE));
+                	
+                	continue;
+                }
+                else {
+                	if (j == cols)
+                		System.out.print(maf.returnCharacterByType(Characters.END_LINE));
+                	else
+                    	System.out.print(maf.returnCharacterByType(Characters.EMPTY_LINE));
+                }
+
+            }
+            System.out.println();
+            
+        }
