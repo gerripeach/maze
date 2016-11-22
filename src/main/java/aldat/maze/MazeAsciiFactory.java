@@ -13,7 +13,9 @@ public class MazeAsciiFactory {
 		
 		FULL_WALL,
 		EMPTY_WALL,
-		END_WALL
+		END_WALL,
+		
+		INDEX_LINE
 	}
 	
 	private Settings settings;
@@ -65,7 +67,7 @@ public class MazeAsciiFactory {
 
                 if (maze.hasWall(i, j, Direction.EAST)) {
                 	if (j == (maxCols - 1))
-                		output += returnCharacterByType(Characters.END_WALL);
+                		output += returnCharacterByType(Characters.END_WALL, i);
                 	else
                 		output += returnCharacterByType(Characters.FULL_WALL);
                 }
@@ -83,6 +85,11 @@ public class MazeAsciiFactory {
             output += returnCharacterByType(Characters.END_LINE);
             
         }
+        
+        for (int i = 0; i < maxCols; ++i) {  
+        	output += returnCharacterByType(Characters.INDEX_LINE, i);
+        }
+        
         return output;
 	}
 
@@ -99,10 +106,20 @@ public class MazeAsciiFactory {
                 return "|  ";
             case EMPTY_WALL:
             	return "   ";
-            case END_WALL:
-                return "|\n";
             default:
             	return ":(";
         }
     }
+    
+    private String returnCharacterByType(Characters ch, int index) {
+        switch (ch) {
+	        case END_WALL:
+	        	return "| " + index + "\n";
+	        case INDEX_LINE:
+	        	return index + "  ";
+	        default:
+	        	return ":(";
+        }
+    }
+    
 }
