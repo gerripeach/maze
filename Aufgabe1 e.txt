@@ -1,0 +1,9 @@
+Aufgabe 1
+
+e)
+Generate several random mazes for different choices of p. Describe how the mazes
+tend to look like for these choices. Do your mazes have a path from upper left
+corner to lower right?
+
+Die Irrgärten verändern sich durch die Anzahl der Mauern, die man sich anschauen kann. Mehr oder weingier werden. 
+D.h. umso näher man der 0 kommt umsoweniger werden es. Umso größer die Zahlen werden, desto mehr Mauern werden es.
