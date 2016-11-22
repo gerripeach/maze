@@ -23,5 +23,5 @@ target*/
 *.LOCAL.*
 
 # Maze produced stuff
-*.txt
-*.pbm
+collection*/*txt/*.txt
+collection*/*txt/*.pbm
