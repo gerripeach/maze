@@ -4,7 +4,7 @@ public class Main {
 	
     public static void main( String[] args ) {
     	Settings settings = new Settings();
-    	MazeAsciiFactory maf = new MazeAsciiFactory(settings);
+    	MazePrintFactory maf = new MazePrintFactory(settings);
     	
         boolean[][] testMazePrototype = {
                 {false, true, true, true},
@@ -14,10 +14,14 @@ public class Main {
                 {false, false, false, true},
         };
         Maze maze = new Maze(testMazePrototype);
-        System.out.println(maf.printMaze(maze));
+        System.out.println(maf.mazeToAsciiArt(maze));
+        System.out.println(maf.mazeToPBM(maze));
+
+
+        maf.printMazeIntoFile("test", maze, MazePrintFactory.FileType.TYPE_PBM);
 
         MazeFactory mf = new MazeFactory();
         maze = mf.randomMaze(100, 100, .3f);
-        maf.printMazeIntoFile("filename", maze);
+        maf.printMazeIntoFile("filename", maze, MazePrintFactory.FileType.TYPE_PBM);
     }
 }
