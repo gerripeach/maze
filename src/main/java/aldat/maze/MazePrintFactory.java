@@ -125,6 +125,7 @@ public class MazePrintFactory {
 		output += "\n";
 
 		for (int i = 0; i < maxRows; ++i) {
+			System.err.println("Status: " + i);
 			String colString = "";
 			for (int j = 0; j < maxCols; ++j) {
 				if (j == 0)
