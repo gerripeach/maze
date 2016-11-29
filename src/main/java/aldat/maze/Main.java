@@ -21,7 +21,7 @@ public class Main {
         maf.printMazeIntoFile("test", maze, MazePrintFactory.FileType.TYPE_PBM);
 
         MazeFactory mf = new MazeFactory();
-        maze = mf.randomMaze(1000, 1000, .5f);
+        maze = mf.randomMaze(300, 300, .5f);
         maf.printMazeIntoFile("filename", maze, MazePrintFactory.FileType.TYPE_PBM);
     }
 }
