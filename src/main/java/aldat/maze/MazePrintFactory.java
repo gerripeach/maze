@@ -32,26 +32,25 @@ public class MazePrintFactory {
 	public void printMazeIntoFile(String filename, Maze maze, FileType ft) {
 		BufferedWriter writer = null;
 		try {
-			String mazeString = "";
+            writer = null;
 			String path = "";
 			switch (ft) {
 				case TYPE_TXT:
-					mazeString = mazeToAsciiArt(maze);
 					path = settings.getCollectionTxtPath() + filename + ".txt";
+                    writer = new BufferedWriter(new FileWriter(path));
+                    mazeToAsciiArt(maze, writer);
 					break;
 				case TYPE_PBM:
-					mazeString = mazeToPBM(maze);
 					path = settings.getCollectionPbmPath() + filename + ".pbm";
+                    writer = new BufferedWriter(new FileWriter(path));
+                    mazeToPBM(maze, writer);
 					break;
 				default:
 					break;
 			}
-		    writer = new BufferedWriter(new FileWriter(path));
-		    writer.write(mazeString);
-
 		}
 		catch (IOException e) {
-			System.out.println("ERROR: writing maze into file!");
+			System.err.println("ERROR: writing maze into file!");
 		}
 		finally	{
 		    try {
@@ -59,73 +58,71 @@ public class MazePrintFactory {
 		        	writer.close( );
 		    }
 		    catch (IOException e) {
-		    	System.out.println("ERROR: closing writer!");
+		    	System.err.println("ERROR: closing writer!");
 		    }
 		}
 	}
 	
-	public String mazeToAsciiArt(Maze maze) {
+	private void mazeToAsciiArt(Maze maze, BufferedWriter writer) throws IOException {
         int maxCols = maze.getMaxCols();
         int maxRows = maze.getMaxRows();
-        String output = "";
 		
         for (int i = 0; i < maxCols; ++i) {
         	if (maze.hasWall(0, i, Direction.NORTH)) {
-        		output += returnCharacterByType(Characters.FULL_LINE);
+                writer.write(returnCharacterByType(Characters.FULL_LINE));
         	}
         }
-        output += returnCharacterByType(Characters.END_LINE);
+        writer.write(returnCharacterByType(Characters.END_LINE));
         
         for (int i = 0; i < maxRows; ++i) {
+            printStatus(maxRows, i);
         	
             for (int j = 0; j < maxCols; ++j) {
             	if (j == 0)
             		if (maze.hasWall(i, j, Direction.WEST)) {
-            			output += returnCharacterByType(Characters.FULL_WALL);
+                        writer.write(returnCharacterByType(Characters.FULL_WALL));
             		}
 
                 if (maze.hasWall(i, j, Direction.EAST)) {
                 	if (j == (maxCols - 1))
-                		output += returnCharacterByType(Characters.END_WALL, i);
+                        writer.write(returnCharacterByType(Characters.END_WALL, i));
                 	else
-                		output += returnCharacterByType(Characters.FULL_WALL);
+                        writer.write(returnCharacterByType(Characters.FULL_WALL));
                 }
                 else
-                	output += returnCharacterByType(Characters.EMPTY_WALL);
+                    writer.write(returnCharacterByType(Characters.EMPTY_WALL));
             }
             
             for (int j = 0; j < maxCols; ++j) {            	
                 if (maze.hasWall(i, j, Direction.SOUTH))
-                	output += returnCharacterByType(Characters.FULL_LINE);
+                    writer.write(returnCharacterByType(Characters.FULL_LINE));
                 else
-                	output += returnCharacterByType(Characters.EMPTY_LINE);
+                    writer.write(returnCharacterByType(Characters.EMPTY_LINE));
 
             }
-            output += returnCharacterByType(Characters.END_LINE);
+            writer.write(returnCharacterByType(Characters.END_LINE));
             
         }
         
-        for (int i = 0; i < maxCols; ++i) {  
-        	output += returnCharacterByType(Characters.INDEX_LINE, i);
+        for (int i = 0; i < maxCols; ++i) {
+            writer.write(returnCharacterByType(Characters.INDEX_LINE, i));
         }
-        
-        return output;
 	}
 
-	public String mazeToPBM(Maze maze) {
+	private void mazeToPBM(Maze maze, BufferedWriter writer) throws IOException {
 		int maxCols = maze.getMaxCols();
 		int maxRows = maze.getMaxRows();
-		String output = "P1\n" + maxCols * 3 + " " + (maxRows * 3 + 1) + "\n";
+		writer.write("P1\n" + maxCols * 3 + " " + (maxRows * 3 + 1) + "\n");
 
 		for (int i = 0; i < maxCols; ++i) {
 			if (maze.hasWall(0, i, Direction.NORTH)) {
-				output += "1 1 1 "; // one space to much
+                writer.write("1 1 1 "); // one space to much
 			}
 		}
-		output += "\n";
+        writer.write("\n");
 
 		for (int i = 0; i < maxRows; ++i) {
-			System.err.println("Status: " + i);
+            printStatus(maxRows, i);
 			String colString = "";
 			for (int j = 0; j < maxCols; ++j) {
 				if (j == 0)
@@ -143,24 +140,23 @@ public class MazePrintFactory {
 				else
 					colString += "0 0 0 ";
 			}
-			output += colString + colString;
+            writer.write(colString + colString);
 
 			for (int j = 0; j < maxCols; ++j) {
 				if (maze.hasWall(i, j, Direction.SOUTH)) {
 					if (j == (maxCols - 1))
-						output += "1 1 1\n";
+                        writer.write("1 1 1\n");
 					else
-						output += "1 1 1 ";
+                        writer.write("1 1 1 ");
 				} else if (j == (maxCols - 1))
-					output += "0 0 1\n";
+                    writer.write("0 0 1\n");
 				else if (j == 0)
-					output += "1 0 0 ";
+                    writer.write("1 0 0 ");
 				else
-					output += "0 0 1 ";
+                    writer.write("0 0 1 ");
 
 			}
 		}
-		return output;
 	}
 
     private String returnCharacterByType(Characters ch) {
@@ -190,6 +186,10 @@ public class MazePrintFactory {
 	        default:
 	        	return ":(";
         }
+    }
+
+    private void printStatus(int max, int now) {
+        System.err.println(Math.round(((float)now / (float)max) * 100) + "%");
     }
     
 }

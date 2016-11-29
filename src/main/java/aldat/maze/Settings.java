@@ -29,13 +29,13 @@ public class Settings {
 		try {
 			reader = new BufferedReader(new FileReader("settings.properties"));
 		} catch (FileNotFoundException e) {
-			System.out.println("ERROR: settings.poperties not found!");
+			System.err.println("ERROR: settings.poperties not found!");
 			e.printStackTrace();
 		}
     	try {
 			properties.load(reader);
 		} catch (IOException e) {
-			System.out.println("ERROR: could not load settings.poperties!");
+			System.err.println("ERROR: could not load settings.poperties!");
 			e.printStackTrace();
 		}
     	finally	{
@@ -44,7 +44,7 @@ public class Settings {
 		        	reader.close();	
     		}
 		    catch (IOException e) {
-		    	System.out.println("ERROR: could not close reader!");
+		    	System.err.println("ERROR: could not close reader!");
 		    }
     	}    	
     	

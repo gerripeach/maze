@@ -14,11 +14,9 @@ public class Main {
                 {false, false, false, true},
         };
         Maze maze = new Maze(testMazePrototype);
-        System.out.println(maf.mazeToAsciiArt(maze));
-        System.out.println(maf.mazeToPBM(maze));
 
 
-        maf.printMazeIntoFile("test", maze, MazePrintFactory.FileType.TYPE_PBM);
+        maf.printMazeIntoFile("test", maze, MazePrintFactory.FileType.TYPE_TXT);
 
         MazeFactory mf = new MazeFactory();
         maze = mf.randomMaze(300, 300, .5f);
