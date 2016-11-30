@@ -10,6 +10,7 @@ public class Settings {
 	
 	private String collectionTxt;
 	private String collectionPbm;
+    private boolean showStatus;
 	
 	public Settings() {
 		loadProperties();
@@ -21,7 +22,9 @@ public class Settings {
 
 	public String getCollectionPbmPath() {
 		return collectionPbm;
-	}	
+	}
+
+	public boolean getShowStatus() { return showStatus; }
 	
 	private void loadProperties() {
     	Properties properties = new Properties();
@@ -48,7 +51,8 @@ public class Settings {
 		    }
     	}    	
     	
-    	collectionTxt = properties.getProperty("pathTxt");
-    	collectionPbm = properties.getProperty("pathPbm");    	
+    	collectionTxt = properties.getProperty("pathTxt", "./collection/txt/");
+    	collectionPbm = properties.getProperty("pathPbm", "./collection/pbm/");
+        showStatus = Boolean.parseBoolean(properties.getProperty("showStatus", "true"));
     }
 }

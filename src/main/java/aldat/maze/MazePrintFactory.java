@@ -54,8 +54,10 @@ public class MazePrintFactory {
 		}
 		finally	{
 		    try {
-		        if (writer != null)
-		        	writer.close( );
+		        if (writer != null) {
+                    printStatus(1, 1);
+                    writer.close();
+                }
 		    }
 		    catch (IOException e) {
 		    	System.err.println("ERROR: closing writer!");
@@ -123,24 +125,24 @@ public class MazePrintFactory {
 
 		for (int i = 0; i < maxRows; ++i) {
             printStatus(maxRows, i);
-			String colString = "";
-			for (int j = 0; j < maxCols; ++j) {
-				if (j == 0)
-					if (maze.hasWall(i, j, Direction.WEST)) {
-						colString += "1 0 0 ";
-						continue;
-					}
 
-				if (maze.hasWall(i, j, Direction.EAST)) {
-					if (j == (maxCols - 1))
-						colString += "0 0 1\n";
-					else
-						colString += "0 0 1 ";
-				}
-				else
-					colString += "0 0 0 ";
-			}
-            writer.write(colString + colString);
+            for (int j = 0; j < 2; ++j)
+                for (int k = 0; k < maxCols; ++k) {
+                    if (k == 0)
+                        if (maze.hasWall(i, k, Direction.WEST)) {
+                            writer.write("1 0 0 ");
+                            continue;
+                        }
+
+                    if (maze.hasWall(i, k, Direction.EAST)) {
+                        if (k == (maxCols - 1))
+                            writer.write("0 0 1\n");
+                        else
+                            writer.write("0 0 1 ");
+                    }
+                    else
+                        writer.write("0 0 0 ");
+                }
 
 			for (int j = 0; j < maxCols; ++j) {
 				if (maze.hasWall(i, j, Direction.SOUTH)) {
@@ -189,7 +191,8 @@ public class MazePrintFactory {
     }
 
     private void printStatus(int max, int now) {
-        System.err.println(Math.round(((float)now / (float)max) * 100) + "%");
+        if (settings.getShowStatus())
+            System.err.println("MazePrintFactory: " + (int)(((float)now / (float)max) * 100) + "%");
     }
     
 }
