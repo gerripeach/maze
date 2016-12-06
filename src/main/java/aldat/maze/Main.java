@@ -25,5 +25,7 @@ public class Main {
         maf.printMazeIntoFile("filename", maze, MazePrintFactory.FileType.TYPE_PBM);
         long end = System.currentTimeMillis();
         System.err.println("Needed " + (((float)(end - start)) / 1000) + " seconds to generate the maze.");
+        
+        
     }
 }

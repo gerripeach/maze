@@ -1,5 +1,7 @@
 package aldat.maze;
 
+import java.util.ArrayList;
+
 enum Direction
 {
     SOUTH,
@@ -55,4 +57,19 @@ public class Maze
                 return false;
         }
     }
+    
+    // wir können es nicht ausgeben und Sören findet es nicht sooooo gut :/
+    public int[][] unionFindId(int row, int col){
+    	int c=0;
+    	//int a = maxCols * maxRows;
+    	int [][] id = new int[maxCols][maxRows];
+    	for(int i=0; i <=maxRows; i++){
+    		for (int k=0; k<= maxCols; i++){
+    			id[i][k] = c;
+    			c++;
+    		}
+    	}
+    	return id;
+   }
+
 }
