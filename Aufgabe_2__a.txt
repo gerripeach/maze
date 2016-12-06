@@ -1,0 +1,7 @@
+Mann muss durch das Labyrinth laufen und alle Möglichekeiten ausprobieren. 
+Immer, wenn man in einer Sackgasse ist, zurücklaufen bis zur vorherigen "Kreuzung". 
+Dann den nächsten Weg ausprobieren und eventuell genauso verfahren. 
+Sind alle Wege eine Sackgasse geht man noch weiter zurück. 
+Findet man keinen Weg, also alle sind Sackgassen, dann gibt es keinen Weg durch das Labyrinth. 
+Gleichzeitig ließt man mit, wo auf der Karte/ im Labyrinth man ist. 
+Ist man also auf der Karte unten rechts angekommen, so ist man dies auch im Labyrinth.
