@@ -2,15 +2,20 @@ package aldat.maze;
 
 import java.util.Random;
 
-public class MazeFactory {
+public class MazeFactory implements Runnable {
 
     private Settings settings;
+    
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
 
     public MazeFactory(Settings settings) {
         this.settings = settings;
     }
 
-	Maze randomMaze(int rows, int cols, float p) {
+	public Maze randomMaze(int rows, int cols, float p) {
 		Random r = new Random();		
 
 		rows = (rows * 2) - 1;
@@ -32,18 +37,11 @@ public class MazeFactory {
 	public Maze randomMazeWithPath(int rows, int cols, float p) {
 		boolean _finished = false;
 		Maze maze = null;
-		int _count = 0;
 		while (!_finished) {
-			long start = System.currentTimeMillis();
 			maze = randomMaze(rows, cols, p);
-			long end = System.currentTimeMillis();
-			System.err.println("Needed " + (((float) (end - start)) / 1000) + " seconds to generate the maze.");
 
 			if (maze.hasPathFromUpperLeftToLowerRight())
 				_finished = true;
-			
-			_count++;
-			System.err.println("Main: " + _count + " generation count.");
 		}
 		
 		return maze;
