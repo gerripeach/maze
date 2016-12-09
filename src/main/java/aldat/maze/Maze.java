@@ -27,7 +27,7 @@ public class Maze {
 
 	public boolean hasWall(int row, int col, Direction dir) {
 		if (row > maxRows || col > maxCols) {
-			System.out.println("ERROR: wrong input!");
+			System.err.println("ERROR: wrong input!");
 			return false;
 		}
 
@@ -70,5 +70,4 @@ public class Maze {
 		}
 		return uf.connected(0, unionFindId(maxRows - 1, maxCols - 1));
 	}
-
 }

@@ -192,7 +192,7 @@ public class MazePrintFactory {
 
     private void printStatus(int max, int now) {
         if (settings.getShowStatus())
-            System.err.println("MazePrintFactory: " + (int)(((float)now / (float)max) * 100) + "%");
+            System.out.println("MazePrintFactory: " + (int)(((float)now / (float)max) * 100) + "%");
     }
     
 }
