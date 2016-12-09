@@ -1,0 +1,3 @@
+What is the value of N that you use ?
+
+(row * maxCols) + col

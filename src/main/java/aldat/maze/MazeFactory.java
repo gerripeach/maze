@@ -29,6 +29,26 @@ public class MazeFactory {
 		return new Maze(mazePrototype);
 	}
 	
+	public Maze randomMazeWithPath(int rows, int cols, float p) {
+		boolean _finished = false;
+		Maze maze = null;
+		int _count = 0;
+		while (!_finished) {
+			long start = System.currentTimeMillis();
+			maze = randomMaze(rows, cols, p);
+			long end = System.currentTimeMillis();
+			System.err.println("Needed " + (((float) (end - start)) / 1000) + " seconds to generate the maze.");
+
+			if (maze.hasPathFromUpperLeftToLowerRight())
+				_finished = true;
+			
+			_count++;
+			System.err.println("Main: " + _count + " generation count.");
+		}
+		
+		return maze;
+	}
+	
     private boolean isEvenNumber(int i) {
         return i % 2 == 0 ? true : false;
     }
